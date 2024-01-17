@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 
     // 0을 루트로 사용, 0에서 각 프로세스가 보낸 정보 취합
     if (myrank == 0) {
-        cout << "MY RANK: " << myrank << " AND I RECV: ";
+        cout << "MY RANK: " << myrank << " AND I GATHER RECV: ";
         for(int i = 0; i < 3; i++) cout << irecv[i] << " ";
         cout << endl;
     }
