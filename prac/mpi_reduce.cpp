@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
     istart = myrank * 3;
     iend = istart + 2;
-
+    
     // arr 배열 생성
     for(int i = istart; i < iend + 1; i++) arr[i] = i+1;
 
