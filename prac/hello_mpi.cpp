@@ -16,8 +16,8 @@ int main(int argc, char** argv) {
     char processor_name[MPI_MAX_PROCESSOR_NAME];
     
     // 현재 프로세서의 이름과 길이 얻기
-    int name_len;
-    MPI_Get_processor_name(processor_name, &name_len);
+    int node_name;
+    MPI_Get_processor_name(processor_name, &node_name);
 
     // 각 프로세스에서 출력
     cout << "Hello from process " << world_rank << " of " << world_size << " on node " << processor_name << endl;
