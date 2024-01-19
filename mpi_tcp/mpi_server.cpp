@@ -42,7 +42,7 @@ int main() {
         MPI_Abort(MPI_COMM_WORLD, 1);
     }
 
-    cout << "Server on Node " << world_rank << " is waiting for incoming connections..." << endl;
+    cout << "Server on Node of Rank is " << world_rank << " is waiting for incoming connections..." << endl;
 
     // 클라이언트 연결을 수락
     sockaddr_in clientAddr;

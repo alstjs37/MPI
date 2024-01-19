@@ -19,7 +19,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # 패키지 설치
 RUN apt-get update && apt-get install -y \
-    cmake curl g++ gcc git openmpi-bin wget vim htop \
+    cmake curl g++ gcc git openmpi-bin wget vim htop dnsutils\
     build-essential \
     libopenmpi-dev
 
