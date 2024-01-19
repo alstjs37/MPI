@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mpi-pod-SN03
+  name: mpi-pod-sn03
   namespace: mpi-mslee
   labels:
      app: mpi-headless-service
