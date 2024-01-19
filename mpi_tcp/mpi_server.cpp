@@ -48,6 +48,7 @@ int main() {
     sockaddr_in clientAddr;
     socklen_t clientAddrLen = sizeof(clientAddr);
     int clientSocket = accept(serverSocket, (struct sockaddr*)&clientAddr, &clientAddrLen);
+    cout << "TCP CONECTION SUCCESS !!" << endl << endl;
     if (clientSocket == -1) {
         cerr << "Error accepting client connection." << endl;
         close(serverSocket);
