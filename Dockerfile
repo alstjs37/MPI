@@ -4,10 +4,19 @@
 FROM ubuntu:22.04
 
 # 일반 사용자를 추가하고 권한 부여
-RUN useradd -m -s /bin/bash mpiuser
+# RUN useradd -m -s /bin/bash mpiuser
+
+# sudo 설치
+RUN apt-get update && apt-get install sudo
+
+# mpisuer 계정 생성 및 sudo 권한 부여
+RUN adduser --disabled-password --gecos "" mpiuser  \
+    && echo 'mpiuser:mpiuser' | chpasswd \
+    && adduser mpiuser sudo \
+    && echo 'mpiuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # 사용자에게 sudo 권한 부여
-RUN echo 'myuser ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers
+# RUN usermod -aG sudo mpiuser
 
 # 이미지 내에서 사용할 디렉토리 생성 및 권한 부여
 WORKDIR /home/mpiuser
@@ -19,9 +28,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # 패키지 설치
 RUN apt-get update && apt-get install -y \
-    cmake curl g++ gcc git openmpi-bin wget vim htop dnsutils\
+    cmake curl g++ gcc git wget vim htop dnsutils\
     build-essential \
-    libopenmpi-dev
+    openmpi-bin libopenmpi-dev
 
 # 이미지 크기를 줄이기 위해 캐시된 패키지 리스트 제거
 RUN rm -rf /var/lib/apt/lists/*
