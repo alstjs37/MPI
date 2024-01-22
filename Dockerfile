@@ -3,9 +3,6 @@
 # 기본 이미지 설정
 FROM ubuntu:22.04
 
-# 일반 사용자를 추가하고 권한 부여
-# RUN useradd -m -s /bin/bash mpiuser
-
 # sudo 설치
 RUN apt-get update && apt-get install sudo
 
@@ -14,9 +11,6 @@ RUN adduser --disabled-password --gecos "" mpiuser  \
     && echo 'mpiuser:mpiuser' | chpasswd \
     && adduser mpiuser sudo \
     && echo 'mpiuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-# 사용자에게 sudo 권한 부여
-# RUN usermod -aG sudo mpiuser
 
 # 이미지 내에서 사용할 디렉토리 생성 및 권한 부여
 WORKDIR /home/mpiuser
@@ -47,10 +41,8 @@ COPY . .
 # 현재 directory를 working directory로 지정
 WORKDIR .
 
-# RUN
-# RUN cd build
-# RUN cmake .
-# RUN make
+# compile cpp code
+RUN sudo g++ -o ./k8s/check_info.out ./k8s/check_info.cpp
 
 # CMD
 # 명령어 실행 후 죽는 걸 방지하기 위해
