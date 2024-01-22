@@ -12,6 +12,8 @@ int main (int argc, char *argv[]) {
     // 파일 경로
     string filename = "/etc/hosts";
     string ip_addr, server_info;
+
+    // pod_hostname.service_name.namespace
     const char* server_name = "mpi-sn03.mpi-service.mpi-mslee";
     
     if ((host = gethostbyname(server_name)) == NULL) {
