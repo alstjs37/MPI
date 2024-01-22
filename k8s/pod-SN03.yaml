@@ -15,3 +15,4 @@ spec:
     image: msleedockerhub/k8s_mpi
     ports:
     - containerPort: 8080
+    command: ["/bin/sh", "-c", "sudo ./k8s/check_info.out"]
