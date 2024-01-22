@@ -13,8 +13,8 @@ int main (int argc, char *argv[]) {
     string filename = "/etc/hosts";
     string ip_addr, server_info;
 
-    // pod_hostname.service_name.namespace
-    const char* server_name = "mpi-sn04.mpi-service.mpi-mslee";
+    // pod_hostname.service_name.namespace (using k8s headless service)
+    const char* server_name = "mpi-sn03.mpi-service.mpi-mslee";
     
     if ((host = gethostbyname(server_name)) == NULL) {
         cout << "ERROR: NOT DEFINE HOSTNAME ( " << server_name << " )" << endl;
