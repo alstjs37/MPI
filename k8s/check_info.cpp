@@ -9,12 +9,12 @@ int main (int argc, char *argv[]) {
 
     struct hostent *host;
     
-    // 파일 경로
+    // file path
     string filename = "/etc/hosts";
     string ip_addr, server_info;
 
     // pod_hostname.service_name.namespace
-    const char* server_name = "mpi-sn03.mpi-service.mpi-mslee";
+    const char* server_name = "mpi-sn04.mpi-service.mpi-mslee";
     
     if ((host = gethostbyname(server_name)) == NULL) {
         cout << "ERROR: NOT DEFINE HOSTNAME ( " << server_name << " )" << endl;
@@ -23,19 +23,19 @@ int main (int argc, char *argv[]) {
     ip_addr = inet_ntoa(*(struct in_addr*)host->h_addr_list[0]);
     server_info = ip_addr + " " + server_name;
 
-    // 파일 쓰기 모드로 열기
-    ofstream outfile(filename);
+    // open file with write mode & write with append mode
+    ofstream outfile(filename, ios::app);
 
-    // 파일 열기에 성공한 경우
+    // if file open success
     if (outfile.is_open()) {
-        // 파일에 쓰기
+        // write at file
         outfile << server_info << endl;
 
-        // 파일 닫기
+        // close file
         outfile.close();
         cout << "FILE WRITE SUCCESS" << endl;
     } else {
-        // 파일 열기에 실패한 경우
+        // fail to open file
         cerr << "ERROR: FAIL TO OPEN FILE" << endl;
     }
 
