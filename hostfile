@@ -1,2 +1,2 @@
-SN03 port=10022 slots=1 max_slots=40
-SN04 port=10022 slots=1 max_slots=40
+SN03 port=10022 slots=2 max_slots=20
+SN04 port=10022 slots=2 max_slots=20
