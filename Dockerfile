@@ -42,7 +42,7 @@ COPY . .
 WORKDIR .
 
 # compile cpp code
-RUN sudo g++ -o ./k8s/check_info.out ./k8s/check_info.cpp
+# RUN sudo g++ -o ./k8s/check_info.out ./k8s/check_info.cpp
 
 # CMD
 # 명령어 실행 후 죽는 걸 방지하기 위해
