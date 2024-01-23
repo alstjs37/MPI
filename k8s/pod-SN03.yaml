@@ -14,6 +14,10 @@ spec:
   - name: container
     image: msleedockerhub/k8s_mpi
     ports:
-    - containerPort: 8080
-    # tail -f /dev/null -> pod not to quit
-    # command: ["/bin/sh", "-c", "sudo ./k8s/check_info.out && tail -f /dev/null"]
+    - containerPort: 22
+  ports:
+    - containerPort: 22
+
+
+# tail -f /dev/null -> pod not to quit
+# command: ["/bin/sh", "-c", "sudo ./k8s/check_info.out && tail -f /dev/null"]
