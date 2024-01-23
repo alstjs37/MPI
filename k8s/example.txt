@@ -1,0 +1,18 @@
+223.130.195.95 www.naver.com
+223.130.195.200 www.naver.com
+142.250.207.100 www.google.com
+223.130.195.95 www.naver.com
+192.168.3.103 SN03
+172.217.161.228 www.google.com
+223.130.200.104 www.naver.com
+142.250.76.132 www.google.com
+223.130.195.200 www.naver.com
+172.217.161.228 www.google.com
+223.130.195.200 www.naver.com
+--------------------------------------
+172.217.161.228 www.google.com
+223.130.195.200 www.naver.com
+172.217.161.228 www.google.com
+223.130.195.200 www.naver.com
+172.217.161.228 www.google.com
+223.130.200.107 www.naver.com
