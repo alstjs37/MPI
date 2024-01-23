@@ -14,29 +14,31 @@ int main (int argc, char *argv[]) {
     string ip_addr, server_info;
 
     // pod_hostname.service_name.namespace (using k8s headless service)
-    const char* server_name = "mpi-sn03.mpi-service.mpi-mslee";
+    const char* server_name[2] = {"mpi-sn03.mpi-service.mpi-mslee", "mpi-sn04.mpi-service.mpi-mslee"};
     
-    if ((host = gethostbyname(server_name)) == NULL) {
-        cout << "ERROR: NOT DEFINE HOSTNAME ( " << server_name << " )" << endl;
-    }
+    for(int i = 0; i < 2; i++) {
+        if ((host = gethostbyname(server_name[i])) == NULL) {
+            cout << "ERROR: NOT DEFINE HOSTNAME ( " << server_name[i] << " )" << endl;
+        }
 
-    ip_addr = inet_ntoa(*(struct in_addr*)host->h_addr_list[0]);
-    server_info = ip_addr + " " + server_name;
+        ip_addr = inet_ntoa(*(struct in_addr*)host->h_addr_list[i]);
+        server_info = ip_addr + " " + server_name[i];
 
-    // open file with write mode & write with append mode
-    ofstream outfile(filename, ios::app);
+        // open file with write mode & write with append mode
+        ofstream outfile(filename, ios::app);
 
-    // if file open success
-    if (outfile.is_open()) {
-        // write at file
-        outfile << server_info << endl;
+        // if file open success
+        if (outfile.is_open()) {
+            // write at file
+            outfile << server_info << endl;
 
-        // close file
-        outfile.close();
-        cout << "FILE WRITE SUCCESS" << endl;
-    } else {
-        // fail to open file
-        cerr << "ERROR: FAIL TO OPEN FILE" << endl;
+            // close file
+            outfile.close();
+            cout << "FILE WRITE SUCCESS" << endl;
+        } else {
+            // fail to open file
+            cerr << "ERROR: FAIL TO OPEN FILE" << endl;
+        }
     }
 
     return 0;
