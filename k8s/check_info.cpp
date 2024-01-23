@@ -7,10 +7,11 @@
 
 using namespace std;
 
+// change domain to ip addr and return "ip addr + domain name"
 string domain_to_ip(const char* server_name) {
-    struct hostent *host;
-
     string ip_addr, server_info;
+    
+    struct hostent *host;
 
     while(1) {
         host = gethostbyname(server_name);
@@ -24,6 +25,7 @@ string domain_to_ip(const char* server_name) {
     }
 }
 
+// write server_info( "ip addr + domain name ") to /etc/hosts
 void write_file(string filename, string server_info) {
     ofstream outfile(filename, ios::app);
 
@@ -47,6 +49,7 @@ int main (int argc, char *argv[]) {
     // pod_hostname.service_name.namespace (using k8s headless service)
     const char* server_name[2] = {"mpi-sn03.mpi-service.mpi-mslee", "mpi-sn04.mpi-service.mpi-mslee"};
     
+    // change domain to ip and write file
     for(int i = 0; i < num_of_node; i++) {
         server_info = domain_to_ip(server_name[i]);
         write_file(filename, server_info);
