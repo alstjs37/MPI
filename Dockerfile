@@ -13,7 +13,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # 패키지 설치
 RUN apt-get update && apt-get install -y \
     cmake curl g++ gcc git wget vim htop dnsutils\
-    build-essential \
+    build-essential expect \
     openmpi-bin libopenmpi-dev
 
 # ssh 설치
