@@ -69,6 +69,11 @@ CMD ["/usr/sbin/sshd", "-D", "/etc/ssh/sshd_config"]
 RUN mkdir /root/mpiuser
 WORKDIR /root/mpiuser
 
+# MPI를 root 계정으로 실행할 때 --allow-run-as-root 옵션 없이도 실행 가능할 수 있도록
+RUN echo 'export OMPI_ALLOW_RUN_AS_ROOT=1' >> ~/.bashrc
+RUN echo 'export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1' >> ~/.bashrc
+# RUN source ~/.bashrc
+
 # COPY
 COPY . .
 
