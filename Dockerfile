@@ -48,20 +48,26 @@ CMD ["/usr/sbin/sshd", "-D", "/etc/ssh/sshd_config"]
 ####여기까지 SSH
 
 # rdma를 위한 libibverbs-dev
-RUN apt-get -y install libibverbs-dev
+# RUN apt-get -y install libibverbs-dev
 
-# mpisuer 계정 생성 및 sudo 권한 부여
-RUN adduser --disabled-password --gecos "" mpiuser  \
-    && echo 'mpiuser:mpiuser' | chpasswd \
-    && adduser mpiuser sudo \
-    && echo 'mpiuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# # mpisuer 계정 생성 및 sudo 권한 부여
+# RUN adduser --disabled-password --gecos "" mpiuser  \
+#     && echo 'mpiuser:mpiuser' | chpasswd \
+#     && adduser mpiuser sudo \
+#     && echo 'mpiuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# 이미지 내에서 사용할 디렉토리 생성 및 권한 부여
-WORKDIR /home/mpiuser
-RUN chown -R mpiuser:mpiuser /home/mpiuser
+# # 이미지 내에서 사용할 디렉토리 생성 및 권한 부여
+# WORKDIR /home/mpiuser
+# RUN chown -R mpiuser:mpiuser /home/mpiuser
+
+# # mpiuser 비밀번호 생성
+# RUN echo 'mpiuser:1234' | chpasswd
 
 # 이미지 내에서 일반 사용자로 전환
 # USER mpiuser
+
+RUN mkdir /root/mpiuser
+WORKDIR /root/mpiuser
 
 # COPY
 COPY . .
@@ -75,4 +81,4 @@ WORKDIR .
 # CMD
 # 명령어 실행 후 죽는 걸 방지하기 위해
 RUN sudo chmod 755 entrypoint.sh
-ENTRYPOINT ["/home/mpiuser/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
