@@ -2,6 +2,7 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <fstream>
+#include <sstream>
 
 #define num_of_node 2
 
@@ -36,6 +37,15 @@ void write_file(string filename, string server_info) {
 
 }
 
+string split_domain(string domain_name) {
+    string str = domain_name, token;
+    istringstream ss(str);
+
+    getline(ss, token, '.');
+    
+    return token;
+}
+
 int main (int argc, char *argv[]) {
     
     // file path
@@ -45,10 +55,12 @@ int main (int argc, char *argv[]) {
     // pod_hostname.service_name.namespace (using k8s headless service)
     const char* server_name[2] = {"www.google.com", "www.naver.com"};
 
-    for(int i = 0; i < num_of_node; i++) {
-        server_info = domain_to_ip(server_name[i]);
-        write_file(filename, server_info);
-    }
+    // for(int i = 0; i < num_of_node; i++) {
+    //     server_info = domain_to_ip(server_name[i]);
+    //     write_file(filename, server_info);
+    // }
+
+    cout << "result ---> " << split_domain(server_name[0]) << endl;
 
     cout << "TOTAL PROCESS IS SUCCESSED !!" << endl;
     return 0;
