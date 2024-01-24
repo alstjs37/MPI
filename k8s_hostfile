@@ -1,2 +1,0 @@
-mpi-sn03.mpi-service.mpi-mslee.svc.cluster.local max_slots=20
-mpi-sn04.mpi-service.mpi-mslee.svc.cluster.local max_slots=20

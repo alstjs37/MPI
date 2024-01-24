@@ -33,8 +33,8 @@ RUN echo 'root:1234' | chpasswd
 # root 계정으로의 로그인을 허용한다. 아래 명령을 추가하지 않으면 root 계정으로 로그인이 불가능하다. 
 RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 
-# port 주석 해제
-RUN sed -i 's/#Port 22/Port 22/' /etc/ssh/sshd_config
+# port 주석 해제 및 포트 10022로 변경
+RUN sed -i 's/#Port 22/Port 10022/' /etc/ssh/sshd_config
 
 # 응용 프로그램이 password 파일을 읽어 오는 대신 PAM이 직접 인증을 수행 하도록 하는 PAM 인증을 활성화
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
@@ -42,7 +42,7 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 # RUN mkdir /home/mpiuser/.ssh
 RUN mkdir /root/.ssh
 
-EXPOSE 22
+EXPOSE 10022
 
 CMD ["/usr/sbin/sshd", "-D", "/etc/ssh/sshd_config"]
 ####여기까지 SSH
