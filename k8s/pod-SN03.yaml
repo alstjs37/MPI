@@ -15,8 +15,6 @@ spec:
     image: msleedockerhub/k8s_mpi
     ports:
     - containerPort: 22
-  ports:
-    - containerPort: 22
 
 
 # tail -f /dev/null -> pod not to quit
