@@ -75,8 +75,8 @@ COPY . .
 # 현재 directory를 working directory로 지정
 WORKDIR .
 
-# compile cpp code
-# RUN sudo g++ -o ./k8s/check_info.out ./k8s/check_info.cpp
+# key.sh 실행파일로 변경
+RUN chmod 755 /root/mpiuser/key.sh
 
 # CMD
 # 명령어 실행 후 죽는 걸 방지하기 위해
