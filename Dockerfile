@@ -6,16 +6,6 @@ FROM ubuntu:22.04
 # sudo 설치
 RUN apt-get update && apt-get install sudo
 
-# mpisuer 계정 생성 및 sudo 권한 부여
-RUN adduser --disabled-password --gecos "" mpiuser  \
-    && echo 'mpiuser:mpiuser' | chpasswd \
-    && adduser mpiuser sudo \
-    && echo 'mpiuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-# 이미지 내에서 사용할 디렉토리 생성 및 권한 부여
-WORKDIR /home/mpiuser
-RUN chown -R mpiuser:mpiuser /home/mpiuser
-
 # 환경변수에 추가
 # apt 설치시 입력요청 무시
 ARG DEBIAN_FRONTEND=noninteractive
@@ -26,14 +16,52 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     openmpi-bin libopenmpi-dev
 
+# ssh 설치
+RUN apt-get update && apt-get install -y \
+    openssh-server openssh-client net-tools
+
 # 이미지 크기를 줄이기 위해 캐시된 패키지 리스트 제거
 RUN rm -rf /var/lib/apt/lists/*
+
+#### 여기부터 SSH 
+RUN mkdir /var/run/sshd
+
+# root password 변경, $PASSWORD를 변경한다.
+RUN echo 'root:1234' | chpasswd
+
+# ssh 설정 변경
+# root 계정으로의 로그인을 허용한다. 아래 명령을 추가하지 않으면 root 계정으로 로그인이 불가능하다. 
+RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# port 주석 해제
+RUN sed -i 's/#Port 22/Port 22/' /etc/ssh/sshd_config
+
+# 응용 프로그램이 password 파일을 읽어 오는 대신 PAM이 직접 인증을 수행 하도록 하는 PAM 인증을 활성화
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+# RUN mkdir /home/mpiuser/.ssh
+RUN mkdir /root/.ssh
+
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd", "-D", "/etc/ssh/sshd_config"]
+####여기까지 SSH
 
 # rdma를 위한 libibverbs-dev
 RUN apt-get -y install libibverbs-dev
 
+# mpisuer 계정 생성 및 sudo 권한 부여
+RUN adduser --disabled-password --gecos "" mpiuser  \
+    && echo 'mpiuser:mpiuser' | chpasswd \
+    && adduser mpiuser sudo \
+    && echo 'mpiuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# 이미지 내에서 사용할 디렉토리 생성 및 권한 부여
+WORKDIR /home/mpiuser
+RUN chown -R mpiuser:mpiuser /home/mpiuser
+
 # 이미지 내에서 일반 사용자로 전환
-USER mpiuser
+# USER mpiuser
 
 # COPY
 COPY . .
@@ -46,4 +74,5 @@ WORKDIR .
 
 # CMD
 # 명령어 실행 후 죽는 걸 방지하기 위해
-CMD ["sleep", "infinity"]
+RUN sudo chmod 755 entrypoint.sh
+ENTRYPOINT ["/home/mpiuser/entrypoint.sh"]
