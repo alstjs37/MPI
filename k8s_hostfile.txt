@@ -1,0 +1,2 @@
+mpi-sn03 max_slots=28
+mpi-sn04 max_slots=28
