@@ -1,4 +1,4 @@
 # !/bin/bash
-sudo g++ -o ./k8s/check_info.out ./k8s/check_info.cpp
+sudo g++ -o /root/mpiuser/k8s/check_info.out /root/mpiuser/k8s/check_info.cpp
 
-sudo ./k8s/check_info.out
+sudo /root/mpiuser/k8s/check_info.out
