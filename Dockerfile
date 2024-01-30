@@ -1,4 +1,4 @@
-## Dockerfile for MPI communication in single pod(node)
+## Dockerfile for MPI communication in single & multi pod(node)
 
 # 기본 이미지 설정
 FROM ubuntu:22.04
