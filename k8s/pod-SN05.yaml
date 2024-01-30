@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mpi-pod-sn05
+  namespace: mpi-mslee
+  labels:
+     app: mpi-headless-service
+spec:
+  hostname: mpi-sn05
+  subdomain: mpi-service
+  nodeSelector:
+    worker: "node5"
+  containers:
+  - name: container
+    image: msleedockerhub/k8s_mpi
+    ports:
+    - containerPort: 8080
+
+
+# tail -f /dev/null -> pod not to quit
+# command: ["/bin/sh", "-c", "sudo ./k8s/check_info.out && tail -f /dev/null"]

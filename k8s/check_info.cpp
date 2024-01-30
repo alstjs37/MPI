@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 
-#define num_of_node 2
+#define num_of_node 3
 
 using namespace std;
 
@@ -58,7 +58,7 @@ int main (int argc, char *argv[]) {
     string ip_addr, server_info, mini_domain;
 
     // pod_hostname.service_name.namespace (using k8s headless service)
-    const char* server_name[2] = {"mpi-sn03.mpi-service.mpi-mslee", "mpi-sn04.mpi-service.mpi-mslee"};
+    const char* server_name[num_of_node] = {"mpi-sn03.mpi-service.mpi-mslee", "mpi-sn04.mpi-service.mpi-mslee", "mpi-sn05.mpi-service.mpi-mslee"};
     
     // change domain to ip and write file
     for(int i = 0; i < num_of_node; i++) {
