@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
     MPI_Get_processor_name(processor_name, &node_name);
 
     // 각 프로세스에서 출력
-    cout << "Hello from process " << world_rank << " of " << world_size << " on node " << processor_name << endl;
+    cout << "Hello from process " << world_rank << " of " << world_size << " on node ( " << processor_name << " )" << endl;
 
     // MPI 종료
     MPI_Finalize();
