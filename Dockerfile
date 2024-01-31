@@ -26,11 +26,11 @@ RUN rm -rf /var/lib/apt/lists/*
 #### 여기부터 SSH 
 RUN mkdir /var/run/sshd
 
-# root password 변경, $PASSWORD를 변경한다.
+# root password 변경, $PASSWORD를 변경
 RUN echo 'root:1234' | chpasswd
 
 # ssh 설정 변경
-# root 계정으로의 로그인을 허용한다. 아래 명령을 추가하지 않으면 root 계정으로 로그인이 불가능하다. 
+# root 계정으로의 로그인을 허용한다. 아래 명령을 추가하지 않으면 root 계정으로 로그인이 불가능
 RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # port 주석 해제 및 포트 10022로 변경
